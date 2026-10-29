@@ -1,0 +1,304 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+      <AssemblyReference>System.Xml.ReaderWriter</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Project: Zulekha Hospital RCM - Pre-Claim Validation &amp; Scrubbing Dispatcher&#xA;Module: Validates daily HIS outpatient billing exports (Emirates ID format, ICD-10 diagnosis presence, and TPA Prior Approval codes) prior to eClaimLink / Riayati XML submission." DisplayName="Main - Zulekha RCM Pre-Claim Scrubbing" sap:VirtualizedContainerService.HintSize="1090,8485.6" sap2010:WorkflowViewState.IdRef="Sequence_Main">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="str_InputFilePath" />
+      <Variable x:TypeArguments="x:String" Name="str_OutputFilePath" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_RawClaims" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_CleanClaims" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_ExceptionClaims" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_SeedData" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <TryCatch DisplayName="Try Catch - Main RCM Pre-Claim Validation Execution" sap:VirtualizedContainerService.HintSize="521.6,8417.6" sap2010:WorkflowViewState.IdRef="TryCatch_Main">
+      <TryCatch.Try>
+        <Sequence sap2010:Annotation.AnnotationText="Reads daily HIS dump, applies RCM validation rules per row, and splits output into Ready vs. Exception sheets." DisplayName="End-to-End RCM Scrubbing Workflow" sap:VirtualizedContainerService.HintSize="520,7834.4" sap2010:WorkflowViewState.IdRef="Sequence_TryBlock">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:LogMessage DisplayName="Log Message - Start Bot" sap:VirtualizedContainerService.HintSize="486.4,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_Start" Level="Info" Message="[&quot;Starting Zulekha RCM Pre-Claim Scrubbing Bot...&quot;]" />
+          <Sequence DisplayName="1. Initialization &amp; Read HIS Input" sap:VirtualizedContainerService.HintSize="486.4,4205.6" sap2010:WorkflowViewState.IdRef="Sequence_Init">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Assign DisplayName="Assign - Ensure Input Folder &amp; Set Path" sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_InputPath">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[str_InputFilePath]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(System.IO.Directory.CreateDirectory("Data\Input").FullName, "HIS_Daily_Outpatient_Claims.xlsx")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Assign - Ensure Output Folder &amp; Set Path" sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_OutputPath">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[str_OutputFilePath]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(System.IO.Directory.CreateDirectory("Data\Output").FullName, "RCM_Scrubbed_Report_" + DateTime.Now.ToString("ddMMyyyy") + ".xlsx")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <If Condition="[Not System.IO.File.Exists(str_InputFilePath)]" DisplayName="If - Input Workbook Does Not Exist (Auto-Create Sample HIS Dump)" sap:VirtualizedContainerService.HintSize="451.2,3024" sap2010:WorkflowViewState.IdRef="If_SeedFile">
+              <If.Then>
+                <Sequence DisplayName="Sequence - Build Sample HIS Outpatient Workbook" sap:VirtualizedContainerService.HintSize="449.6,2796" sap2010:WorkflowViewState.IdRef="Sequence_Seed">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message - Generating Input File" sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_Seed" Level="Info" Message="[&quot;Input workbook not found. Auto-generating sample HIS export at: &quot; + str_InputFilePath]" />
+                  <ui:BuildDataTable DataTable="[dt_SeedData]" DisplayName="Build Data Table - HIS Columns" sap:VirtualizedContainerService.HintSize="416,92" sap2010:WorkflowViewState.IdRef="BuildDataTable_Seed" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;MRN&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Patient_Name&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Emirates_ID&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;TPA_Payer&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;ICD10_Code&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;CPT_Code&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Approval_No&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Claim_Amount_AED&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;RCM_Status&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[New Object() {&quot;ZH-SHJ-10421&quot;, &quot;Ahmed Al Mansoori&quot;, &quot;784-1988-4512398-1&quot;, &quot;Daman&quot;, &quot;J06.9&quot;, &quot;99213&quot;, &quot;APP-99201&quot;, &quot;340.00&quot;, &quot;&quot;}]" DataTable="[dt_SeedData]" DisplayName="Add Row 1 - Clean Daman" sap:VirtualizedContainerService.HintSize="416,220" sap2010:WorkflowViewState.IdRef="AddRow_1" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[New Object() {&quot;ZH-DXB-20895&quot;, &quot;Omar Farooq&quot;, &quot;784-1985-6619283-4&quot;, &quot;Sukoon&quot;, &quot;I10&quot;, &quot;93000&quot;, &quot;APP-66104&quot;, &quot;510.00&quot;, &quot;&quot;}]" DataTable="[dt_SeedData]" DisplayName="Add Row 2 - Clean Sukoon" sap:VirtualizedContainerService.HintSize="416,220" sap2010:WorkflowViewState.IdRef="AddRow_2" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[New Object() {&quot;ZH-SHJ-10428&quot;, &quot;Mariam Al Suwaidi&quot;, &quot;784-1992-7741209-3&quot;, &quot;Nextcare&quot;, &quot;K21.9&quot;, &quot;99214&quot;, &quot;NC-44810&quot;, &quot;480.00&quot;, &quot;&quot;}]" DataTable="[dt_SeedData]" DisplayName="Add Row 3 - Clean Nextcare" sap:VirtualizedContainerService.HintSize="416,220" sap2010:WorkflowViewState.IdRef="AddRow_3" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[New Object() {&quot;ZH-SHJ-10430&quot;, &quot;Ramesh Krishnan&quot;, &quot;784-1980-5512094-8&quot;, &quot;Neuron&quot;, &quot;E78.5&quot;, &quot;80061&quot;, &quot;NRN-11902&quot;, &quot;295.00&quot;, &quot;&quot;}]" DataTable="[dt_SeedData]" DisplayName="Add Row 4 - Clean Neuron" sap:VirtualizedContainerService.HintSize="416,220" sap2010:WorkflowViewState.IdRef="AddRow_4" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[New Object() {&quot;ZH-DXB-20901&quot;, &quot;Zainab Siddiqui&quot;, &quot;784-1999-3109482-5&quot;, &quot;NAS&quot;, &quot;J30.9&quot;, &quot;99203&quot;, &quot;&quot;, &quot;310.00&quot;, &quot;&quot;}]" DataTable="[dt_SeedData]" DisplayName="Add Row 5 - Clean NAS" sap:VirtualizedContainerService.HintSize="416,220" sap2010:WorkflowViewState.IdRef="AddRow_5" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[New Object() {&quot;ZH-SHJ-10422&quot;, &quot;Priya Nair&quot;, &quot;784-1994-8823411-2&quot;, &quot;Nextcare&quot;, &quot;E11.9&quot;, &quot;80053&quot;, &quot;&quot;, &quot;620.00&quot;, &quot;&quot;}]" DataTable="[dt_SeedData]" DisplayName="Add Row 6 - Exception Missing Nextcare Approval" sap:VirtualizedContainerService.HintSize="416,220" sap2010:WorkflowViewState.IdRef="AddRow_6" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[New Object() {&quot;ZH-DXB-20891&quot;, &quot;Khalid Tariq&quot;, &quot;784-1991-12345&quot;, &quot;Neuron&quot;, &quot;M54.5&quot;, &quot;72148&quot;, &quot;NRN-88412&quot;, &quot;1850.00&quot;, &quot;&quot;}]" DataTable="[dt_SeedData]" DisplayName="Add Row 7 - Exception Invalid Emirates ID" sap:VirtualizedContainerService.HintSize="416,220" sap2010:WorkflowViewState.IdRef="AddRow_7" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[New Object() {&quot;ZH-SHJ-10425&quot;, &quot;Fatima Hassan&quot;, &quot;784-1997-3391042-7&quot;, &quot;NAS&quot;, &quot;&quot;, &quot;99204&quot;, &quot;APP-77129&quot;, &quot;450.00&quot;, &quot;&quot;}]" DataTable="[dt_SeedData]" DisplayName="Add Row 8 - Exception Missing ICD10" sap:VirtualizedContainerService.HintSize="416,220" sap2010:WorkflowViewState.IdRef="AddRow_8" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[New Object() {&quot;ZH-DXB-20899&quot;, &quot;Saeed Al Nuaimi&quot;, &quot;784-1987-9920184-6&quot;, &quot;Neuron&quot;, &quot;G43.909&quot;, &quot;70551&quot;, &quot;&quot;, &quot;2150.00&quot;, &quot;&quot;}]" DataTable="[dt_SeedData]" DisplayName="Add Row 9 - Exception Missing Neuron Approval" sap:VirtualizedContainerService.HintSize="416,220" sap2010:WorkflowViewState.IdRef="AddRow_9" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[New Object() {&quot;ZH-SHJ-10435&quot;, &quot;Arjun Menon&quot;, &quot;&quot;, &quot;Daman&quot;, &quot;R51.9&quot;, &quot;99212&quot;, &quot;APP-55019&quot;, &quot;260.00&quot;, &quot;&quot;}]" DataTable="[dt_SeedData]" DisplayName="Add Row 10 - Exception Blank Emirates ID" sap:VirtualizedContainerService.HintSize="416,220" sap2010:WorkflowViewState.IdRef="AddRow_10" />
+                  <ui:WriteRange StartingCell="{x:Null}" DataTable="[dt_SeedData]" DisplayName="Write Range Workbook - Create HIS Input File" sap:VirtualizedContainerService.HintSize="416,269.6" sap2010:WorkflowViewState.IdRef="WriteRange_Seed" SheetName="Sheet1" WorkbookPath="[str_InputFilePath]" />
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence DisplayName="Sequence - File Already Exists" sap:VirtualizedContainerService.HintSize="449.6,89.6" sap2010:WorkflowViewState.IdRef="Sequence_SeedElse">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Sequence>
+              </If.Else>
+            </If>
+            <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[dt_RawClaims]" DisplayName="Read Range Workbook - HIS Outpatient Claims" sap:VirtualizedContainerService.HintSize="451.2,226.4" sap2010:WorkflowViewState.IdRef="ReadRange_HIS" SheetName="Sheet1" WorkbookPath="[str_InputFilePath]" />
+            <Assign DisplayName="Assign - Clone Schema for Clean Claims" sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_CloneClean">
+              <Assign.To>
+                <OutArgument x:TypeArguments="sd:DataTable">[dt_CleanClaims]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="sd:DataTable">[dt_RawClaims.Clone()]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Assign - Clone Schema for Exception Claims" sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_CloneException">
+              <Assign.To>
+                <OutArgument x:TypeArguments="sd:DataTable">[dt_ExceptionClaims]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="sd:DataTable">[dt_RawClaims.Clone()]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <ui:LogMessage DisplayName="Log Message - Row Count" sap:VirtualizedContainerService.HintSize="451.2,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_Loaded" Level="Info" Message="[&quot;Total outpatient claims loaded from HIS export: &quot; + dt_RawClaims.Rows.Count.ToString()]" />
+          </Sequence>
+          <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_RawClaims]" DisplayName="2. For Each Row in Data Table - dt_RawClaims" sap:VirtualizedContainerService.HintSize="486.4,2544" sap2010:WorkflowViewState.IdRef="ForEachRow_Claims">
+            <ui:ForEachRow.Body>
+              <ActivityAction x:TypeArguments="sd:DataRow">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Body - Validate Individual Patient Claim" sap:VirtualizedContainerService.HintSize="484.8,2362.4" sap2010:WorkflowViewState.IdRef="Sequence_RowBody">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="x:String" Name="str_PatientMRN" />
+                    <Variable x:TypeArguments="x:String" Name="str_EmiratesID" />
+                    <Variable x:TypeArguments="x:String" Name="str_TPAPayer" />
+                    <Variable x:TypeArguments="x:String" Name="str_ICD10Code" />
+                    <Variable x:TypeArguments="x:String" Name="str_ApprovalNo" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign DisplayName="Assign - Extract MRN" sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_MRN">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[str_PatientMRN]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[CurrentRow("MRN").ToString().Trim()]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Assign - Extract Emirates ID" sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_EID">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[str_EmiratesID]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[CurrentRow("Emirates_ID").ToString().Trim()]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Assign - Extract TPA Payer" sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_TPA">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[str_TPAPayer]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[CurrentRow("TPA_Payer").ToString().Trim()]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Assign - Extract ICD10 Code" sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_ICD10">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[str_ICD10Code]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[CurrentRow("ICD10_Code").ToString().Trim()]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Assign - Extract Prior Approval No" sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="Assign_Approval">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[str_ApprovalNo]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[CurrentRow("Approval_No").ToString().Trim()]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <If sap2010:Annotation.AnnotationText="Rule 1: UAE Emirates ID must match 784-XXXX-XXXXXXX-X&#xA;Rule 2: Primary ICD-10 Code cannot be blank&#xA;Rule 3: Nextcare &amp; Neuron claims require a Prior Approval Number" Condition="[String.IsNullOrEmpty(str_EmiratesID) OrElse Not System.Text.RegularExpressions.Regex.IsMatch(str_EmiratesID, &quot;^784-\d{4}-\d{7}-\d{1}$&quot;) OrElse String.IsNullOrEmpty(str_ICD10Code) OrElse ((str_TPAPayer.Equals(&quot;Nextcare&quot;, StringComparison.OrdinalIgnoreCase) OrElse str_TPAPayer.Equals(&quot;Neuron&quot;, StringComparison.OrdinalIgnoreCase)) AndAlso String.IsNullOrEmpty(str_ApprovalNo))]" DisplayName="If - RCM Pre-Claim Validation Rules" sap:VirtualizedContainerService.HintSize="451.2,1430.4" sap2010:WorkflowViewState.IdRef="If_RCMValidation">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If.Then>
+                      <Sequence DisplayName="Then - Flag Claim for RCM Hold / Denial Prevention" sap:VirtualizedContainerService.HintSize="449.6,620" sap2010:WorkflowViewState.IdRef="Sequence_Hold">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Assign DisplayName="Assign - Status Hold" sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_StatusHold">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Object">[CurrentRow("RCM_Status")]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Object">["HOLD - Invalid EID, Missing ICD10, or Missing TPA Approval"]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[CurrentRow.ItemArray]" DataTable="[dt_ExceptionClaims]" DisplayName="Add Data Row - To dt_ExceptionClaims" sap:VirtualizedContainerService.HintSize="416,220" sap2010:WorkflowViewState.IdRef="AddDataRow_Hold" />
+                        <ui:LogMessage DisplayName="Log Message - Claim Held" sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_Hold" Level="Warn" Message="[&quot;Claim HELD for MRN: &quot; + str_PatientMRN + &quot; | Payer: &quot; + str_TPAPayer]" />
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence DisplayName="Else - Mark Claim Ready for eClaimLink Submission" sap:VirtualizedContainerService.HintSize="449.6,620" sap2010:WorkflowViewState.IdRef="Sequence_Ready">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Assign DisplayName="Assign - Status Ready" sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_StatusReady">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Object">[CurrentRow("RCM_Status")]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Object">["READY - Verified for Submission"]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[CurrentRow.ItemArray]" DataTable="[dt_CleanClaims]" DisplayName="Add Data Row - To dt_CleanClaims" sap:VirtualizedContainerService.HintSize="416,220" sap2010:WorkflowViewState.IdRef="AddDataRow_Ready" />
+                        <ui:LogMessage DisplayName="Log Message - Claim Verified" sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_Ready" Level="Info" Message="[&quot;Claim VERIFIED for MRN: &quot; + str_PatientMRN + &quot; | Payer: &quot; + str_TPAPayer]" />
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEachRow.Body>
+          </ui:ForEachRow>
+          <Sequence DisplayName="3. Generate Daily RCM Output Reports" sap:VirtualizedContainerService.HintSize="486.4,805.6" sap2010:WorkflowViewState.IdRef="Sequence_Output">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:WriteRange StartingCell="{x:Null}" DataTable="[dt_CleanClaims]" DisplayName="Write Range Workbook - Ready_For_Submission" sap:VirtualizedContainerService.HintSize="416,278.4" sap2010:WorkflowViewState.IdRef="WriteRange_Clean" SheetName="Ready_For_Submission" WorkbookPath="[str_OutputFilePath]" />
+            <ui:WriteRange StartingCell="{x:Null}" DataTable="[dt_ExceptionClaims]" DisplayName="Write Range Workbook - RCM_Exceptions_Hold" sap:VirtualizedContainerService.HintSize="416,278.4" sap2010:WorkflowViewState.IdRef="WriteRange_Exceptions" SheetName="RCM_Exceptions_Hold" WorkbookPath="[str_OutputFilePath]" />
+            <ui:LogMessage DisplayName="Log Message - Summary" sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_Summary" Level="Info" Message="[&quot;RCM Scrubbing Completed. Clean Claims: &quot; + dt_CleanClaims.Rows.Count.ToString() + &quot; | Held Claims: &quot; + dt_ExceptionClaims.Rows.Count.ToString()]" />
+          </Sequence>
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch_MainException">
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Global Exception Handler" sap:VirtualizedContainerService.HintSize="520,225.6" sap2010:WorkflowViewState.IdRef="Sequence_ExceptionHandler">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:LogMessage DisplayName="Log Message - System Exception" sap:VirtualizedContainerService.HintSize="486.4,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_Error" Level="Error" Message="[&quot;System Error in RCM Main Workflow: &quot; + exception.Message + &quot; | Source: &quot; + exception.Source]" />
+            </Sequence>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+      <TryCatch.Finally>
+        <Sequence DisplayName="Finally - Audit Trail" sap:VirtualizedContainerService.HintSize="520,225.6" sap2010:WorkflowViewState.IdRef="Sequence_Finally">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:LogMessage DisplayName="Log Message - Execution Ended" sap:VirtualizedContainerService.HintSize="486.4,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_End" Level="Info" Message="[&quot;Zulekha RCM Pre-Claim Scrubbing execution ended at &quot; + DateTime.Now.ToString(&quot;hh:mm:ss tt&quot;)]" />
+        </Sequence>
+      </TryCatch.Finally>
+    </TryCatch>
+  </Sequence>
+</Activity>
